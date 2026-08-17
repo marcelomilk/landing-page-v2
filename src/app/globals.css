@@ -1,0 +1,465 @@
+@import "tailwindcss";
+
+/* ============================================================
+   MS INTELIGÊNCIA — DESIGN TOKENS
+   Single source of truth. Do not hardcode values elsewhere.
+   ============================================================ */
+
+:root {
+  /* --- Core --- */
+  --ink: #0b0c0e;
+  --paper: #f4f4f1;
+  --white: #ffffff;
+  --signal: #2e9e63;
+  --steel: #63666c;
+  --line: #e2e2dd;
+
+  /* --- Green ramp --- */
+  --green-100: #e6f6ec;
+  --green-200: #c2e9d2;
+  --green-300: #8fd6ae;
+  --green-400: #55be87;
+  --green-500: #2e9e63;
+  --green-600: #24824f;
+  --green-700: #1b673e;
+  --green-800: #134c2d;
+  --green-900: #0c321d;
+
+  /* --- Neutral ramp --- */
+  --neutral-100: #f4f4f1;
+  --neutral-200: #e2e2dd;
+  --neutral-300: #c9c9c4;
+  --neutral-400: #a3a5a9;
+  --neutral-500: #8a8d93;
+  --neutral-600: #63666c;
+  --neutral-700: #45484d;
+  --neutral-800: #26282b;
+  --neutral-900: #0b0c0e;
+
+  /* --- Semantic --- */
+  --success-fg: #134c2d;
+  --success-bg: #e6f6ec;
+  --warning: #b97b16;
+  --warning-fg: #7a5010;
+  --warning-bg: #fdf3e1;
+  --danger: #b3261e;
+  --danger-fg: #7c1a15;
+  --danger-bg: #fbe9e7;
+
+  /* --- Surfaces on ink --- */
+  --on-ink-line: rgba(255, 255, 255, 0.12);
+  --on-ink-muted: rgba(255, 255, 255, 0.6);
+  --on-ink-faint: rgba(255, 255, 255, 0.38);
+
+  /* --- Radius --- */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 14px;
+  --r-pill: 999px;
+
+  /* --- Motion --- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur: 180ms;
+
+  /* --- Layout --- */
+  --measure: 1160px;
+  --gutter: 24px;
+}
+
+@theme inline {
+  --font-display: var(--f-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--f-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--f-plex-mono), ui-monospace, monospace;
+
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-white: var(--white);
+  --color-signal: var(--signal);
+  --color-steel: var(--steel);
+  --color-line: var(--line);
+
+  --color-green-100: var(--green-100);
+  --color-green-600: var(--green-600);
+  --color-green-700: var(--green-700);
+  --color-green-800: var(--green-800);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--green-200);
+  color: var(--green-900);
+}
+
+/* Visible, consistent focus for keyboard users */
+:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+/* ============================================================
+   TYPOGRAPHY PRIMITIVES
+   Archivo -> display. Plex Sans -> body. Plex Mono -> labels.
+   ============================================================ */
+
+.t-display {
+  font-family: var(--f-archivo), sans-serif;
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.t-h2 {
+  font-family: var(--f-archivo), sans-serif;
+  font-weight: 700;
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.t-h3 {
+  font-family: var(--f-archivo), sans-serif;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.t-eyebrow {
+  font-family: var(--f-plex-mono), monospace;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.t-label {
+  font-family: var(--f-plex-mono), monospace;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+
+.shell {
+  width: 100%;
+  max-width: var(--measure);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 40px;
+  }
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --gutter: 56px;
+  }
+}
+
+/* Vertical rhythm */
+.band {
+  padding-block: 88px;
+}
+
+@media (min-width: 768px) {
+  .band {
+    padding-block: 128px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .band {
+    padding-block: 152px;
+  }
+}
+
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+
+/* Primary action — the single accent use */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 24px;
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  background: var(--signal);
+  color: var(--white);
+  font-family: var(--f-plex-sans), sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+
+.btn:hover {
+  background: var(--green-600);
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn .arrow {
+  transition: transform var(--dur) var(--ease);
+}
+
+.btn:hover .arrow {
+  transform: translateX(3px);
+}
+
+/* Quiet, secondary action */
+.btn-quiet {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  border-bottom: 1px solid var(--neutral-300);
+  transition: border-color var(--dur) var(--ease), color var(--dur) var(--ease);
+}
+
+.btn-quiet:hover {
+  color: var(--green-700);
+  border-color: var(--signal);
+}
+
+/* Status chip — semantic colours only, never decorative */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 11px;
+  border-radius: var(--r-pill);
+  font-family: var(--f-plex-mono), monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+.chip::before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+  flex: none;
+}
+
+.chip-ok {
+  background: var(--success-bg);
+  color: var(--success-fg);
+}
+
+.chip-warn {
+  background: var(--warning-bg);
+  color: var(--warning-fg);
+}
+
+.chip-danger {
+  background: var(--danger-bg);
+  color: var(--danger-fg);
+}
+
+/* Form field */
+.field {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--white);
+  color: var(--ink);
+  font-family: var(--f-plex-sans), sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  transition: border-color var(--dur) var(--ease);
+}
+
+.field::placeholder {
+  color: var(--neutral-400);
+}
+
+.field:hover {
+  border-color: var(--neutral-300);
+}
+
+.field:focus {
+  outline: none;
+  border-color: var(--signal);
+  box-shadow: 0 0 0 3px var(--green-100);
+}
+
+/* Hairline list row */
+.rule {
+  border-top: 1px solid var(--line);
+}
+
+.rule-ink {
+  border-top: 1px solid var(--on-ink-line);
+}
+
+/* ============================================================
+   SECTION LAYOUTS
+   Mobile-first: everything stacks by default.
+   ============================================================ */
+
+/* Heading beside supporting paragraph */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: start;
+  margin-top: 28px;
+}
+
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: 1.05fr 1fr;
+  }
+}
+
+/* Problem rows: label column appears only when there is room */
+@media (min-width: 768px) {
+  .gap-row {
+    display: grid;
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 32px;
+    align-items: baseline;
+  }
+}
+
+/* Value steps */
+.steps {
+  display: grid;
+  gap: 40px;
+}
+
+@media (min-width: 768px) {
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 40px;
+  }
+}
+
+/* Reconciliation flow */
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+
+.flow-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* State rows: chip above text on mobile, side by side from tablet */
+.state-row {
+  display: grid;
+  gap: 12px;
+  justify-items: start;
+}
+
+@media (min-width: 640px) {
+  .state-row {
+    grid-template-columns: 190px minmax(0, 1fr);
+    gap: 24px;
+    align-items: center;
+  }
+}
+
+/* Final CTA */
+.split-cta {
+  display: grid;
+  gap: clamp(40px, 6vw, 80px);
+}
+
+@media (min-width: 960px) {
+  .split-cta {
+    grid-template-columns: 1fr minmax(360px, 420px);
+    align-items: start;
+  }
+}
+
+/* Footer */
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* ============================================================
+   MOTION PREFERENCES
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
